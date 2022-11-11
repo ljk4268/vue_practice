@@ -35,12 +35,10 @@
 </template>
 
 <script>
-import { getAuth, signInWithPopup, GoogleAuthProvider  } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, setPersistence, browserSessionPersistence  } from "firebase/auth";
 import app from './firebase'
 
 const auth = getAuth();
-const provider = new GoogleAuthProvider();
-
 
 export default {
   name: 'App',
@@ -53,26 +51,38 @@ export default {
   },
   created() {
       app;
+      let sessionStorage_userData = JSON.parse(sessionStorage.getItem("firebase:authUser:AIzaSyBzxc7HBE9sxvHNUqZeD-TCQ5y_52BQxk8:[DEFAULT]"))
+      if(sessionStorage_userData != 'null'){
+        this.userName = sessionStorage_userData.displayName;
+        this.loginState = 'Logout'
+      }
   },
   methods: {
     loginWithGoogle() {
-      signInWithPopup(auth, provider)
+      setPersistence(auth, browserSessionPersistence)
+      .then(()=>{
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
         .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
         console.log(token)
+        console.log(user)
         this.userName = user.displayName;
         this.loginState = 'LogOut';
         this.loginSpace = !this.loginSpace; 
-      }).catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.customData.email;
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log(errorCode,errorMessage,email,credential)
-      });
+        }).catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          const email = error.customData.email;
+          const credential = GoogleAuthProvider.credentialFromError(error);
+          console.log(errorCode,errorMessage,email,credential)
+        });
+      })
     },
+
+    
   },
   
 }
