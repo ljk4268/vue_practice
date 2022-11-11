@@ -52,6 +52,7 @@ export default {
   created() {
       app;
       let sessionStorage_userData = JSON.parse(sessionStorage.getItem("firebase:authUser:AIzaSyBzxc7HBE9sxvHNUqZeD-TCQ5y_52BQxk8:[DEFAULT]"))
+      console.log(sessionStorage_userData)
       if(sessionStorage_userData != 'null'){
         this.userName = sessionStorage_userData.displayName;
         this.loginState = 'Logout'
