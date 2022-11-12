@@ -1,29 +1,31 @@
 <template>
-  <h1 :[attr]="'actiive'">
-    {{ msg }}
-  </h1>
+  <h1>{{ reversedMessage }}</h1>
+  <h1>{{ reversedMessage }}</h1>
+  <h1>{{ reversedMessage }}</h1>
 </template>
 
 <script>
+
 export default {
   data(){
-    return {
-      msg: 'active',
-      attr: 'class',
-      event: 'click'
+    return{
+      msg: 'hello computed!'
     }
   },
   methods: {
-    add(){
-      this.msg += '!'
+    reverseMessage(){
+      return this.msg.split('').reverse().join('');
+    }
+  },
+  // 계산된 데이터
+  computed: {
+    reversedMessage(){
+      return this.msg.split('').reverse().join('');
     }
   }
 }
 </script>
 
 <style lang="scss">
-  .active{
-    color: royalblue;
-    font-size: 100px;
-  }
+  
 </style>
