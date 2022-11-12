@@ -1,6 +1,6 @@
 <template>
   <h1>
-    {{ message }}
+    {{message}}
     <HelloWorld />
   </h1>
 </template>
