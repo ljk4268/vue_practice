@@ -1,4 +1,11 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import router from './router.js'
+import mitt from 'mitt'
+let emitter = mitt();
+let app = createApp(App);
 
-createApp(App).mount('#app')
+
+app.config.globalProperties.emitter = emitter;
+
+app.use(router).mount('#app')

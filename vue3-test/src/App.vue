@@ -1,9 +1,7 @@
 <template>
-  <button @click="add">
-    ADD
-  </button>
-  <h1>{{ reversedMessage }}</h1>
-  <h1>{{ reversedMessage }}</h1>
+  <h1 @click="changeMessage">
+    {{ msg }}
+  </h1>
   <h1>{{ reversedMessage }}</h1>
 </template>
 
@@ -12,28 +10,26 @@
 export default {
   data(){
     return{
-      msg: 'hello computed!'
+      msg: 'Hello?'
     }
   },
-  // 계산된 데이터
-  // 읽기전용
   computed: {
-    // reversedMessage(){
-    //   return this.msg.split('').reverse().join('');
-    // }
-    reversedMessage: {
-      get(){
-        return this.msg.split('').reverse().join('');
-      },
-      set(newValue){
-        console.log(newValue)
-      }
+    reversedMessage() {
+      return this.msg.split('').reverse().join('');
+    }
+  },
+  // 특정한 데이터 감시 역할
+  watch: {
+    msg(newValue){
+      console.log('msg:', newValue)
+    },
+    reversedMessage(value){
+      console.log('reversedMessage:', value)
     }
   },
   methods: {
-    add(){
-      this.reversedMessage += '!?'
-      
+    changeMessage(){
+      this.msg = 'Good!'
     }
   },
 }
