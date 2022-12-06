@@ -1,21 +1,37 @@
 <template>
-  <h1>
-    {{message}}
-    <HelloWorld />
+  <h1 
+    :[attr]="'active'"
+    @[event]="add">
+    {{ msg }}
   </h1>
 </template>
 
 <script>
-import HelloWorld from '~/components/HelloWorld'
+// import HelloWorld from '~/components/HelloWorld'
 
 export default {
-  components: {
-    HelloWorld
-  },
+  // components: {
+  //   HelloWorld
+  // },
   data(){
     return{
-      message: 'Hello Vue!!!'
+      msg: 'active',
+      attr: 'class',
+      event: 'click'
     }
   },
+  methods: {
+    add() {
+      this.msg += '!'
+    }
+  }
+  
 }
 </script>
+
+<style>
+  .active {
+    color: royalblue;
+    font-size: 50px;
+  }
+</style>
