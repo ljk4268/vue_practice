@@ -1,37 +1,28 @@
 <template>
-  <button @click="handler">
-    Click me!
+  <!-- <button @click="handler('hi',$event)">
+    Click 1
   </button>
-  <ul>
-    <li
-      v-for="{id, name} in newFruits"
-      :key="id">
-      {{ name }} - {{ id }}
-    </li>
-  </ul>
-  
+  <button @click="handler('what', $event)">
+    Click 2
+  </button> -->
+  <button @click="handlerA(),handlerB()">
+    click
+  </button>
 </template>
 
 <script>
-import shortid from 'shortid'
 
 export default {
-  data(){
-    return {
-      fruits: ['Apple','Banana','Cherry'],
-    }
-  },
-  computed: {
-    newFruits(){
-      return this.fruits.map( fruit => ({
-        id: shortid.generate(),
-        name: fruit
-      }))
-    }
-  },
   methods: {
-    handler(){
-      this.fruits.push('Orange')
+    // handler(msg, event){
+    //   console.log(msg)
+    //   console.log(event)
+    // }
+    handlerA(){
+      console.log('A')
+    },
+    handlerB(){
+      console.log('B')
     }
   }
 }
