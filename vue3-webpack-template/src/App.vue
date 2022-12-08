@@ -1,24 +1,32 @@
 <template>
-  <h1>{{ msg }}</h1>
-  <input 
-    type="text" 
-    v-model.trim="msg" />
+  <Mybtn>Banana</Mybtn>
+  <Mybtn 
+    :color="color" >
+    <span style="color: red;">Banana</span>
+  </Mybtn>
+  <Mybtn 
+    large 
+    color="royalblue" >
+    Cherry
+  </Mybtn>
+
+  <button>Banana</button>
 </template>
 
 <script>
+import Mybtn from './components/Mybtn.vue'
 
 export default {
+  components: {
+    Mybtn
+  },
   data(){
     return{
-      msg: 'Hello world!'
-    }
-  },
-  watch: {
-    msg(){
-      console.log(this.msg)
+      color: '#000'
     }
   }
 }
+
 </script>
 
 
