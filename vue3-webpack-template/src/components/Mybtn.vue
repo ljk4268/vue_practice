@@ -1,25 +1,13 @@
 <template>
-  <div
-    :class="{ large }"
-    :style="{ backgroundColor: color }"
-    class="btn">
-    <slot></slot>
+  <div class="btn">
+    <slot name="icon"></slot>
+    <slot name="text"></slot>
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    color: {
-      type: String,
-      default: 'gray'
-    },
-    large: {
-      type: Boolean,
-      default: false
-    }
-  }
-
+  
 }
 </script>
 
