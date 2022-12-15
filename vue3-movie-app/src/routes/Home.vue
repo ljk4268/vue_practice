@@ -1,5 +1,6 @@
 <template>
-  <h1>
+  <h1> Home </h1>
+  <div class="btn btn-primary"> 
     Home
-  </h1>
+  </div>
 </template>
