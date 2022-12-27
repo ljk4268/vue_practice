@@ -1,31 +1,35 @@
 //영화검색과 관련된 데이터 
 
+import axios from 'axios'
+
 export default {
-  // module!
   namespaced: true,
-  // 실제로 취급해야하는 data!
   state: () => ({
-    movies: []
+    movies: [],
+    message: '',
+    loading: false
   }),
-  // 계산된 상태를 만들어내는 computed!
-  getters: {
-    movieIds(state){
-      return state.movies.map(m => m.imdbID)
-    }
-  },
-  // 함수들을 만들어서 데이터 활용할 수 있는 methods!
-  // mutations : 변이, 관리하는 데이터를 변경해 줄 수 있다.
-  // mutations에서만 state에 있는 데이터를 변경할 수 있음! 
+  getters: {},
   mutations: {
+    updateState(state, payload){
+      Object.keys(payload).forEach(key => {
+        state[key] = payload[key]
+      })
+    },
     resetMoives(state){
       state.movies = []
     }
   },
-  // actions : 데이터를 직접적으로 변경할 수 없음. 
-  // 비동기로 동작한다. 
   actions: {
-    searchMovies(){
+    async searchMovies({commit}, payload){
+      const { title, type, year } = payload
+      const OMDB_API_KEY = '7035c60c'
 
+      const res = await axios.get(`https://www.omdbapi.com/?apikey=${OMDB_API_KEY}&s=${title}&type=${type}&y=${year}&page=1`)
+      const { Search } = res.data
+      commit('updateState', {
+        movies: Search
+      })
     }
   },
 }
