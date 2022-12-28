@@ -15,10 +15,9 @@ export default createRouter({
       component: Home
     },
     {
-      path: '/movie',
+      path: '/movie/:id',
       component: Movie
     },
-    // https://google.com/about 
     {
       path: '/about',
       component: About
