@@ -49,7 +49,6 @@ export default {
 
   .container {
     margin-top: 30px;
-    margin-bottom: 30px;
     .inner {
       background-color: $gray-200;
       padding: 10px 0;
