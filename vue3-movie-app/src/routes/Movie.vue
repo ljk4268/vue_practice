@@ -22,7 +22,7 @@
       v-else
       class="movie-details">
       <div 
-        :style="{backgroundImage: `url(${theMovie.Poster})`}"
+        :style="{backgroundImage: `url(${requestDiffSizeImage(theMovie.Poster)})`}"
         class="poster"></div>
       <div class="specs">
         <div class="title">
@@ -47,7 +47,7 @@
               <img 
                 :src="`https://raw.githubusercontent.com/ParkYoungWoong/vue3-movie-app/master/src/assets/${name}.png`"
                 :alt="name" />
-                <span>{{ score }}</span>
+              <span>{{ score }}</span>
             </div>
           </div>
         </div>
@@ -92,6 +92,11 @@ export default {
       // movie/tt123762 ( = movie/:id )
       id: this.$route.params.id
     })
+  },
+  methods: {
+    requestDiffSizeImage(url, size = 700) {
+      return url.replace('SX300',`SX${size}`)
+    }
   }
 }
 </script>
