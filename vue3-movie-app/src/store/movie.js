@@ -34,7 +34,6 @@ export default {
           page:1
         })
         const { Search, totalResults } = res.data
-        console.log(Search)
         commit('updateState', {
           movies: _uniqBy(Search, 'imdbID')
         })
