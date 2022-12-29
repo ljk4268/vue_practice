@@ -3,9 +3,7 @@
     <div 
       :class="{'no-result': !movies.length}" 
       class="inner">
-      <div 
-        v-if="loading"
-        class="spinner-border text-primary"></div>
+      <Loader v-if="loading" />
       <div
         v-if="message"
         class="message">
@@ -25,10 +23,12 @@
 
 <script>
 import MovieItem from './MovieItem.vue'
+import Loader from './Loader.vue'
 
 export default {
   components: {
-    MovieItem
+    MovieItem,
+    Loader
   },
   computed: {
     movies() {
