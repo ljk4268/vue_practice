@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import Loader from '../components/Loader.vue'
 
 export default {
@@ -30,21 +31,17 @@ export default {
     }
   },
   computed: {
-    image() {
-      return this.$store.state.about.image
-    },
-    name() {
-      return this.$store.state.about.name
-    },
-    email() {
-      return this.$store.state.about.email
-    },
-    blog() {
-      return this.$store.state.about.blog
-    },
-    phone() {
-      return this.$store.state.about.phone
-    }
+    // vuex에서 mapState라는 helper를 가지고 와서 
+    // 첫번째 인수로는 about이라는 모듈의 이름을 명시해주고, 
+    // 두번쨰 인수로는 배열데이터를 추가해서, 가지고 올 상태들의 이름을 명시해준다.
+    // 각각의 상태들이 객체데이터로 반환이 될 것이고, 전개연산자(...)를 통해서 하나씩 꺼내준다.
+    ...mapState('about', [
+      'image',
+      'name',
+      'email',
+      'blog',
+      'phone'
+    ])
   },
   mounted() {
     this.init()

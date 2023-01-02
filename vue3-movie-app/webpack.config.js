@@ -41,12 +41,17 @@ module.exports = {
       {
         test: /\.s?css$/,
         use: [
-          // 순서 중요!
+          // 순서 중요! 아래에서부터 동작함
           'vue-style-loader',
           'style-loader',
           'css-loader',
           'postcss-loader',
-          'sass-loader'
+          {
+            loader: 'sass-loader',
+            options: {
+              additionalData: '@import "~/scss/main";'
+            }
+          }
         ]
       },
       {
