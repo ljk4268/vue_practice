@@ -9,8 +9,8 @@ const posts = [
 	{ id: 1, title: '제목1', contents: '내용1', createdAt: '2021-01-01' },
 ];
 
-export default function getPosts() {
-	return axios.get('http://localhost:3000/posts');
+export default function getPosts(params) {
+	return axios.get('http://localhost:3000/posts', { params });
 }
 
 export function getPostById(id) {
@@ -26,5 +26,5 @@ export function updatePost(id, data) {
 }
 
 export function deletePost(id) {
-	return axios.delete(`http://localhost:3000/posts/${id}`)
+	return axios.delete(`http://localhost:3000/posts/${id}`);
 }
