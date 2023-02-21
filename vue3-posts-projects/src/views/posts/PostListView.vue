@@ -10,6 +10,7 @@
 				:contents="item.contents"
 				:created-at="item.createdAt"
 				@click="goPage(item.id)"
+				@modal="openModal(item)"
 			></PostItem>
 		</template>
 	</AppGrid>
@@ -19,49 +20,14 @@
 		@page="page => (params._page = page)"
 	/>
 
-	<!-- Button trigger modal -->
-	<button
-		type="button"
-		class="btn btn-primary"
-		data-bs-toggle="modal"
-		data-bs-target="#exampleModal"
-	>
-		Launch demo modal
-	</button>
-
-	<!-- Modal -->
-	<div
-		class="modal fade"
-		id="exampleModal"
-		tabindex="-1"
-		aria-labelledby="exampleModalLabel"
-		aria-hidden="true"
-	>
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-					<button
-						type="button"
-						class="btn-close"
-						data-bs-dismiss="modal"
-						aria-label="Close"
-					></button>
-				</div>
-				<div class="modal-body">...</div>
-				<div class="modal-footer">
-					<button
-						type="button"
-						class="btn btn-secondary"
-						data-bs-dismiss="modal"
-					>
-						Close
-					</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
-				</div>
-			</div>
-		</div>
-	</div>
+	<Teleport to="#modal">
+		<PostModal
+			v-model="show"
+			:title="modalTitle"
+			:contents="modalContents"
+			:createdAt="modalCreatedAt"
+		/>
+	</Teleport>
 
 	<template v-if="posts && posts.length > 0">
 		<hr class="my-5" />
@@ -72,12 +38,10 @@
 </template>
 
 <script setup>
-import AppCard from '@/components/AppCard.vue';
 import PostItem from '@/components/posts/PostItem.vue';
 import PostDetailView from '@/views/posts/PostDetailView.vue';
 import PostFilter from '@/components/posts/PostFilter.vue';
-import AppPagination from '@/components/AppPagination.vue';
-import AppGrid from '@/components/AppGrid.vue';
+import PostModal from '@/components/posts/PostModal.vue';
 import getPosts from '@/api/posts';
 import { computed, ref, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
@@ -117,6 +81,18 @@ const goPage = id => {
 			id,
 		},
 	});
+};
+
+//modal
+const show = ref(false);
+const modalTitle = ref('');
+const modalContents = ref('');
+const modalCreatedAt = ref('');
+const openModal = ({ title, contents, createdAt }) => {
+	show.value = true;
+	modalTitle.value = title;
+	modalContents.value = contents;
+	modalCreatedAt.value = createdAt;
 };
 </script>
 
