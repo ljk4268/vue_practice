@@ -1,4 +1,5 @@
 <template>
+
 <!-- SNS 로그인 창 -->
   <div class="black-bg" v-if="loginSpace">
     <div class="white-bg">
@@ -11,52 +12,83 @@
       >
     </div>
   </div>
+
+  <!-- mainPage -->
   <div class="header">
     <ul class="header-button-left">
-      <li>{{userName}} 님</li>
+      <li>{{userName}}</li>
     </ul>
     <img src="./assets/logo.png" class="logo">
     <ul class="header-button-rigth">
       <li @click="loginSpace = !loginSpace">{{loginState}}</li>
     </ul>
   </div>
-  
-  <div class="sample-box"></div>
-  <div class="sample-box"></div>
-  <div class="footer">
-    <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
-      <label for="file" class="input-plus">+</label>
+  <Container 
+    :posts="posts"
+    :step="step"
+    :uploadImgUrl="uploadImgUrl"
+  />
+
+  <div class="footer" >
+    <ul class="footer-button-plus" v-if="step == 0">
+        <input 
+          type="file" 
+          id="file" 
+          class="inputfile"
+          @change="upload"
+        />
+        <label for="file" class="input-plus">+</label>
+    </ul>
+    <ul class="footer-button-plus" v-if="step == 1 || step == 2">
+        <input 
+          id="file" 
+          class="inputfile"
+          @click="step++"
+        />
+        <label for="file" class="input-plus"> Next </label>
     </ul>
   </div>
-
   
-
 </template>
 
 <script>
 import { getAuth, signInWithPopup, GoogleAuthProvider, setPersistence, browserSessionPersistence  } from "firebase/auth";
-import app from './firebase'
+import { app, db } from './firebase'
+import { collection, getDocs } from "firebase/firestore"
+import Container from './components/Container.vue'
 
 const auth = getAuth();
 
+
 export default {
   name: 'App',
+  components: {
+    Container
+  },
   data(){
     return {
       loginSpace: false,
       loginState: 'Login',
-      userName: '방문자'
+      userName: '방문자',
+      posts: [],
+      step: 0,
+      uploadImgUrl: '',
     }
   },
   created() {
+      this.getPostData();
       app;
       let sessionStorage_userData = JSON.parse(sessionStorage.getItem("firebase:authUser:AIzaSyBzxc7HBE9sxvHNUqZeD-TCQ5y_52BQxk8:[DEFAULT]"))
-      console.log(sessionStorage_userData)
-      if(sessionStorage_userData != 'null'){
+      if(sessionStorage_userData != null){
         this.userName = sessionStorage_userData.displayName;
         this.loginState = 'Logout'
       }
+      
+  },
+  updated() {
+    if ( this.step == 1 || this.step == 2){
+      this.userName = 'Cancel';
+    }
   },
   methods: {
     loginWithGoogle() {
@@ -82,8 +114,21 @@ export default {
         });
       })
     },
-
-    
+    async getPostData(){
+      const querySnapshot = await getDocs(collection(db, "postmore"));
+      querySnapshot.forEach((doc) => {
+        this.posts.push(doc.data());
+      });
+    },
+    upload(e){
+      let file = e.target.files;
+      let reader = new FileReader();
+      reader.readAsDataURL(file[0]);
+      reader.onload = () => {
+        this.uploadImgUrl = reader.result;
+      }
+      this.step ++;
+    },
   },
   
 }
@@ -101,9 +146,13 @@ export default {
   position: relative;
   border-right: 1px solid #eee;
   border-left: 1px solid #eee;
+  border-top: 1px solid #eee;
 }
 body {
   margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
 }
 ul {
   margin: auto;
@@ -123,18 +172,20 @@ ul {
   padding-top: 8px;
   padding-bottom: 8px;
   position: sticky;
+  z-index: 1;
   top: 0;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
   text-align: center;
   color: skyblue;
+  border-bottom: 1px solid #eee;
 }
 .footer {
   width: 100%;
   position: sticky;
   bottom: 0;
   padding-bottom: 10px;
-  background-color: white;
+  background-color: #cddce3;
 }
 .footer-button-plus {
   width: 80px;
@@ -146,6 +197,9 @@ ul {
 }
 .inputfile{
   display: none;
+}
+.input-plus {
+  font-size: 16px;
 }
 .input-plus, .header-button-left, .header-button-rigth {
   cursor: pointer;
@@ -190,7 +244,6 @@ ul {
   font-weight: 700;
   cursor: pointer;
 }
-
 
 
 
