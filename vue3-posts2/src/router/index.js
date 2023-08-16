@@ -38,10 +38,11 @@ const routes = [
     path: '/posts/:id',
     name: 'PostDetail',
     component: PostDetailView,
-    // props: true, >> :id 값이 해당 컴포넌트의 props로 전달된다.
-    props: route => ({
-      id: parseInt(route.params.id),
-    }),
+    // >> :id 값이 해당 컴포넌트의 props로 전달된다.
+    props: true,
+    // props: route => ({
+    //   id: parseInt(route.params.id),
+    // }),
   },
   {
     path: '/posts/:id/edit',
