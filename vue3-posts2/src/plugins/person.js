@@ -6,11 +6,13 @@
 export default {
   install(app, options) {
     const person = {
-      name: "이자경",
+      name: '이자경',
       say() {
-        alert("this.name");
+        alert('this.name')
       },
-    };
-    app.config.globalProperties.$person = person;
+      ...options,
+    }
+    app.config.globalProperties.$person = person
+    app.provide('person', person)
   },
-};
+}

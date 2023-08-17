@@ -1,5 +1,5 @@
 /* eslint-env node */
-require('@rushstack/eslint-patch/modern-module-resolution');
+require('@rushstack/eslint-patch/modern-module-resolution')
 
 module.exports = {
   root: true,
@@ -17,7 +17,7 @@ module.exports = {
     'prettier/prettier': [
       'error',
       {
-        singleQuote: false,
+        singleQuote: true,
         semi: true,
         useTabs: false,
         tabWidth: 2,
@@ -29,4 +29,4 @@ module.exports = {
       },
     ],
   },
-};
+}
