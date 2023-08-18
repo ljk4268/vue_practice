@@ -8,12 +8,13 @@
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
-    "db": "json-server --watch db.json"
+    "db": "json-server --watch db.json --delay 1000"
   },
   "dependencies": {
     "axios": "^1.4.0",
     "bootstrap": "^5.3.0",
     "bootstrap-icons": "^1.10.5",
+    "dayjs": "^1.11.9",
     "vue": "^3.3.2",
     "vue-router": "^4.2.2"
   },

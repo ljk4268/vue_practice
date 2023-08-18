@@ -4,9 +4,13 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from '@/router'
 import globalComponents from './plugins/global-components'
+import focus from './directives/focus'
+import dayjs from './plugins/dayjs'
 
 const app = createApp(App)
-app.use(globalComponents )
+app.directive('focus', focus)
+app.use(globalComponents)
+app.use(dayjs)
 app.use(router)
 app.mount('#app')
 

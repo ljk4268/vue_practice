@@ -8,7 +8,9 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AppCard: typeof import('./src/components/app/AppCard.vue')['default']
+    AppError: typeof import('./src/components/app/AppError.vue')['default']
     AppGrid: typeof import('./src/components/app/AppGrid.vue')['default']
+    AppLoading: typeof import('./src/components/app/AppLoading.vue')['default']
     AppPagination: typeof import('./src/components/app/AppPagination.vue')['default']
     PostFilter: typeof import('./src/components/posts/PostFilter.vue')['default']
     PostForm: typeof import('./src/components/posts/PostForm.vue')['default']
