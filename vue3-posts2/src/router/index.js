@@ -10,6 +10,7 @@ import NestedView from '@/views/nested/NestedView.vue'
 import NestedOne from '@/views/nested/NestedOne.vue'
 import NestedTwo from '@/views/nested/NestedTwo.vue'
 import NestedHome from '@/views/nested/NestedHome.vue'
+import MyPage from '@/views/MyPage.vue'
 
 const routes = [
   {
@@ -21,6 +22,14 @@ const routes = [
     path: '/about',
     name: 'About',
     component: AboutView,
+  },
+  {
+    path: '/my',
+    name: 'MyPage',
+    component: MyPage,
+    beforeEnter: (to, from) => {
+      console.log(to.query)
+    },
   },
   {
     path: '/posts',
@@ -84,4 +93,15 @@ const router = createRouter({
   routes,
 })
 
+// router.beforeEach((to, from) => {
+//   // to: 이동할 페이지
+//   // from: 이동하기 전 페이지
+//   console.log('to: ', to)
+//   console.log('from: ', from)
+
+//   // 이동할 페이지가 MyPage라면 Home페이지로 이동해라!
+//   if (to.name === 'MyPage') {
+//     return { name: 'Home' }
+//   }
+// })
 export default router

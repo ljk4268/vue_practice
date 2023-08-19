@@ -39,6 +39,11 @@
                 >Nested</router-link
               >
             </li>
+            <li class="nav-item">
+              <router-link class="nav-link" active-class="active" to="/my"
+                >MyPage</router-link
+              >
+            </li>
           </ul>
           <div class="d-flex">
             <button class="btn btn-outline-light" type="button" @click="goPage">
@@ -52,13 +57,13 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 
 const router = useRouter();
 
 const goPage = () => {
   router.push({
-    name: 'PostCreate',
+    name: "PostCreate",
   });
 };
 </script>
